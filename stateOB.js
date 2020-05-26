@@ -18,7 +18,7 @@ request.onload = function () {
     let state = window.location.href.split("?")[1];
 
     if (state.includes("%20")) {
-      state = state.replace("%20", " ");
+      state = state.replace("%20"," ");
     }
     data
       .filter((s) => s.state == state)[0]
@@ -32,10 +32,29 @@ request.onload = function () {
         const p = document.createElement("p");
         p.textContent = `Confirmed :${stateOB.confirmed}\n Recovered : ${stateOB.recovered}
       Deaths :${stateOB.deaths}`;
-
+      
+      let val=stateOB.zone;
         container.appendChild(card);
         card.appendChild(h1);
         card.appendChild(p);
+        if (val == "RED")
+        {
+          const h2 = document.createElement("h2");
+          h2.textContent = stateOB.zone+" ZONE";
+          card.appendChild(h2);
+        }
+        else if(val=="ORANGE")
+        {
+          const h4 = document.createElement("h4");
+          h4.textContent = stateOB.zone+" ZONE";
+          card.appendChild(h4);
+        }
+        else
+        {
+          const h3 = document.createElement("h3");
+          h3.textContent = stateOB.zone+" ZONE";
+          card.appendChild(h3);
+        }
       });
   } else {
     const errorMessage = document.createElement("marquee");
@@ -43,5 +62,4 @@ request.onload = function () {
     app.appendChild(errorMessage);
   }
 };
-
 request.send();
